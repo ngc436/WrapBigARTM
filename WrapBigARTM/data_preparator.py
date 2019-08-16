@@ -5,7 +5,6 @@ import os
 import pandas as pd
 from pyarrow import parquet
 
-
 def get_words_dict(text, stop_list):
     all_words = text
     words = sorted(set(all_words) - stop_list)
