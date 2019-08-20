@@ -24,6 +24,7 @@ def assess_metrics(model):
 
 
 def reset_regularizers(model_artm, regularizers_dict):
+    # pass dict as a args - bad idea
     topic_names = model_artm.topic_names
 
     available_regs_dict = {
@@ -33,8 +34,9 @@ def reset_regularizers(model_artm, regularizers_dict):
     }
 
     for reg in regularizers_dict.keys():
-        for i in range(len(regularizers_dict[reg])):
+        for i, _ in enumerate(regularizers_dict[reg]):
             ttype = regularizers_dict[reg][i]['topic_type']
+
             if reg != 'SmoothSparseThetaRegularizer':
                 model_artm.regularizers.add(
                     available_regs_dict[reg](
@@ -87,9 +89,10 @@ def dictionary_initialization(model_artm, batches_dir, min_df, max_tf):
     return model_artm, my_dictionary
 
 
-def init_model(T, B, batches_dir,
-               regularizers_dict=None, num_document_passes=30,
-               weights_dict=None, min_df=None, max_tf=None):
+def init_model(
+        T, B, batches_dir,
+        regularizers_dict=None, num_document_passes=30,
+        weights_dict=None, min_df=None, max_tf=None):
     # TODO: set where to write logs
     T = int(T)
     B = int(B)
