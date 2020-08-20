@@ -3,7 +3,11 @@ import html
 from pymystem3 import Mystem
 
 import re
+
+import nltk
+nltk.download('stopwords')
 from nltk.corpus import stopwords
+from nltk.stem.wordnet import WordNetLemmatizer
 
 r_vk_ids = re.compile(r'(id{1}[0-9]*)')
 r_num = re.compile(r'([0-9]+)')
@@ -16,7 +20,8 @@ r_html = re.compile(r'(\<[^>]*\>)')
 re1 = re.compile(r'  +')
 url_pattern = re.compile(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
 
-stop = stopwords.words("russian") + [' ']
+m = Mystem()
+lmtzr = WordNetLemmatizer()
 
 def process_punkt(text):
     text = r_punct.sub(" ", text)
@@ -25,20 +30,27 @@ def process_punkt(text):
     text = r_white_space.sub(" ", text)
     return text.strip()
 
-def lemmatize_text(text):
-    text = new_html(text)
-    m = Mystem()
+def lemmatize_text(text, language='en'):
+    try:
+        text = new_html(text)
+    except:
+        return ''
     text = text.lower()
     text = process_punkt(text)
-    text = re.findall(r_rus, text)
-    text = ' '.join(text)
     try:
         tokens = r_words.split(text)
     except:
         return ''
     tokens = (x for x in tokens if len(x) >= 2 and not x.isdigit())
     text = ' '.join(tokens)
-    tokens = m.lemmatize(text)
+    if language == 'en':
+        stop = stopwords.words("english")
+        text = r_eng.sub("", text.strip())
+        tokens = lmtzr.lemmatize(text).split()
+    elif language == 'ru':
+        stop = stopwords.words("russian")
+        text = re.findall(r_rus, text)
+        tokens = m.lemmatize(text)
     tokens = (x for x in tokens if x not in stop)
     tokens = (x for x in tokens if x.isalpha())
     text = ' '.join(tokens)
