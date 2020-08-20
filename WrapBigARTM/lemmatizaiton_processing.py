@@ -18,6 +18,7 @@ r_rus = re.compile(r'[а-яА-Я]\w+')
 r_html = re.compile(r'(\<[^>]*\>)')
 # clean texs from html
 re1 = re.compile(r'  +')
+r_eng = re.compile(r"[^A-Za-z\s]")
 url_pattern = re.compile(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
 
 m = Mystem()
