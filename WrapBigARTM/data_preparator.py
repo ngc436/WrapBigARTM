@@ -3,7 +3,6 @@ import artm
 import glob
 import os
 import pandas as pd
-from pyarrow import parquet
 
 
 def get_words_dict(text, stop_list):
@@ -29,7 +28,7 @@ def file_reader(full_path):
 
     elif full_path.endswith('.parquet'):
         part = pd.read_parquet(full_path)
-    
+
     else:
         print('Unsupported file\'s type encountered')
         part = None
