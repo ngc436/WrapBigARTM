@@ -1,10 +1,10 @@
 |travis| |coveralls| |license|
 
 ===========
-WrapBigARTM
+WrapBigARTM [Work in Progress] 
 ===========
 
-BigARTM wrapper is aimed to simplify the batches preparation, model learning and inference from prepared models.
+BigARTM wrapper is aimed to simplify the batches preparation, model learning and inference from prepared models. Current supported Language are English and Russian. 
 
 
 ------------
