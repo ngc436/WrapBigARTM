@@ -14,6 +14,7 @@ def calculate_topic_coherence(tokens, mutual_info_dict, top=50):
     coherence = 2 / (top * (top - 1)) * total_sum
     return coherence
 
+
 def return_all_tokens_coherence(model, S, B, mutual_info_dict, top=50, return_backs=True):
     topics = list(model.score_tracker['TopTokensScore'].last_tokens.keys())
 

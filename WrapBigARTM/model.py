@@ -125,8 +125,9 @@ class Topic_model:
         self.model.regularizers.add(artm.DecorrelatorPhiRegularizer(name='decorr',
                                                                     topic_names=self.specific, tau=self.decor))
 
-    def get_avg_coherence_score(self, mutual_info_dict,  only_specific=True, for_individ_fitness=False):
-        coherences_main, coherences_back = return_all_tokens_coherence(self.model, S=self.S, B=self.B, mutual_info_dict=mutual_info_dict)
+    def get_avg_coherence_score(self, mutual_info_dict, only_specific=True, for_individ_fitness=False):
+        coherences_main, coherences_back = return_all_tokens_coherence(self.model, S=self.S, B=self.B,
+                                                                       mutual_info_dict=mutual_info_dict)
         if for_individ_fitness:
             print('COMPONENTS: ', np.mean(list(coherences_main.values())), np.min(list(coherences_main.values())))
             return np.mean(list(coherences_main.values())) + np.min(list(coherences_main.values()))

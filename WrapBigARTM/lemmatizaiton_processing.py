@@ -1,10 +1,8 @@
 import html
-
 from pymystem3 import Mystem
-
 import re
-
 import nltk
+
 nltk.download('stopwords')
 nltk.download('wordnet')
 from nltk.corpus import stopwords
@@ -25,12 +23,14 @@ url_pattern = re.compile(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%
 m = Mystem()
 lmtzr = WordNetLemmatizer()
 
+
 def process_punkt(text):
     text = r_punct.sub(" ", text)
     text = r_vk_ids.sub(" ", text)
     text = r_num.sub(" ", text)
     text = r_white_space.sub(" ", text)
     return text.strip()
+
 
 def lemmatize_text(text, language='en'):
     try:
@@ -58,14 +58,18 @@ def lemmatize_text(text, language='en'):
     text = ' '.join(tokens)
     return text
 
+
 def tokens_bigrams_to_text(tokens):
     return ' '.join(['_'.join(tok.split()) for tok in tokens])
+
 
 def text_to_tokens(text):
     return text.split()
 
+
 def get_tokens_count(text):
     return len(text.split())
+
 
 def remove_more_html(x):
     x = x.replace('#39;', "'").replace('amp;', '&').replace('#146;', "'").replace(
@@ -78,12 +82,14 @@ def remove_more_html(x):
         'onclick', ' ').replace('icq', ' ').replace('onmouseover', ' ').replace('post', ' ').replace(
         'local', ' ').replace('key', ' ').replace('target', ' ').replace('amp', ' ').replace(
         'section', ' ').replace('search', ' ').replace('css', ' ').replace('style', ' ').replace(
-        'cc', ' ').replace('text',' ').replace("img", ' ').replace("expand", ' ').replace(
+        'cc', ' ').replace('text', ' ').replace("img", ' ').replace("expand", ' ').replace(
         "text", ' ').replace('\n', ' ').replace('dnum', ' ').replace('xnum', ' ').replace('nnum', ' ')
     return re1.sub(' ', html.unescape(x))
 
+
 def clear_url(text):
     return re.sub(url_pattern, ' ', text)
+
 
 def new_html(text):
     text = r_html.sub("", text)
